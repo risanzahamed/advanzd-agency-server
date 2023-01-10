@@ -28,6 +28,7 @@ async function run() {
 
         const jobsCategory = client.db('advanzd-agency').collection('jobsCategory')
         const jobDetailsByCategory = client.db('advanzd-agency').collection('jobsdetails')
+        const jobPostCollection = client.db('advanzd-agency').collection('jobPost')
 
         app.get('/jobs-category', async (req, res) => {
             const query = {}
@@ -65,6 +66,20 @@ async function run() {
             const result = await jobDetailsByCategory.findOne(query)
             res.send(result)
         })
+
+
+        app.post('/job-details', async (req, res) => {
+            const jobPost = req.body
+            const result = await jobDetailsByCategory.insertOne(jobPost)
+            res.send(result)
+        })
+
+
+        // app.post('/jobs-category', async (req, res) => {
+        //     const createCategory = req.body
+        //     const result = await jobsCategory.insertOne(createCategory)
+        //     res.send(result)
+        // })
 
     }
 
